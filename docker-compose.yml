@@ -1,0 +1,37 @@
+version: '3.8' # Specifies the docker-compose version
+
+services:
+  scheduler:
+    # Tells docker-compose to build the image using the Dockerfile
+    # in the current directory ('.')
+    build: .
+    # Optional: Assigns a name to the built image
+    image: cfs-scheduler-app:latest
+
+    # --- Volume Mount ---
+    # This is the key part for getting output files to your host machine.
+    # It maps the './output' directory on your HOST (where you run docker-compose)
+    # to the '/app/output' directory INSIDE the container.
+    # Docker will create the './output' directory on your host if it doesn't exist.
+    volumes:
+      - ./output:/app/output
+
+    # --- Command Override ---
+    # This command runs when the container starts, replacing the Dockerfile's CMD.
+    # It executes the scheduler, runs the plotter, and copies the results
+    # into the mounted '/app/output' directory, making them appear in './output' on your host.
+    command: > # Using '>' allows for a readable multi-line command
+      sh -c "
+        echo '--- Running C++ CFS Scheduler ---' &&
+        cd /app/build && ./cfs_scheduler &&
+        echo '--- C++ Scheduler Finished (Output: /app/process_schedule.csv) ---' &&
+        echo '--- Running Python Plotter ---' &&
+        cd /app && python3 plot.py &&
+        echo '--- Python Plotter Finished (Output: /app/cfs_advanced_visualization.png) ---' &&
+        echo '--- Copying output files to host volume (/app/output) ---' &&
+        cp /app/process_schedule.csv /app/output/ &&
+        cp /app/cfs_advanced_visualization.png /app/output/ &&
+        echo '***' &&
+        echo 'Success! Output files are now available in the ./output directory on your host machine.' &&
+        echo '***'
+      "

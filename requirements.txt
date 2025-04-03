@@ -1,0 +1,4 @@
+## python file requirements
+matplotlib
+pandas
+numpy
