@@ -3,6 +3,7 @@
 #include <memory>
 #include <iostream>
 #include "cpuBoundProcessExecution.hpp"
+#include <cmath>
 
 constexpr int NICE_0_LOAD = 1024;  // Standard Linux scheduler load for priority 0
 
@@ -12,7 +13,7 @@ constexpr int NICE_0_LOAD = 1024;  // Standard Linux scheduler load for priority
  * @return The computed weight value.
  */
 double weightFunction(int priority) {
-    return NICE_0_LOAD / (priority + 1);  // +1 to avoid division by zero
+    return NICE_0_LOAD * std::pow(1.25, -priority);
 }
 
 /**
