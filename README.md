@@ -1,11 +1,57 @@
 # task-scheduler-implementation-cpp
 
-This project is a C++ task scheduler that uses the Completely Fair Scheduler (CFS) algorithm. It supports two approaches for setup and execution:
-
-1. **Using Docker (Recommended)**
-2. **Manual Setup on Windows with MSYS2 & MinGW-w64**
+A C++ implementation of the **Linux Completely Fair Scheduler (CFS)** algorithm, now with an **interactive web visualizer** you can run entirely in the browser.
 
 ---
+
+## Web Visualizer
+
+The `web/` directory contains a full Next.js + TypeScript app that reimplements the CFS algorithm in the browser and lets you step through the simulation visually.
+
+**Features:**
+- Load the original sample data or generate random workloads with one click
+- Step-by-step playback with Play / Pause / Step / Speed controls
+- Gantt chart showing each scheduling event per process
+- Live vruntime bar chart updated at each step
+- Priority queue state visualization
+- Per-process statistics: turnaround time, waiting time, CPU time
+
+**Run locally:**
+```sh
+cd web
+npm install
+npm run dev
+# Open http://localhost:3000
+```
+
+**Deploy to Vercel (no backend needed):**
+```sh
+cd web
+npx vercel
+```
+
+---
+
+## Algorithm Explained
+
+CFS selects the process with the lowest `vruntime` (virtual runtime) at each scheduling decision. High-priority processes accumulate vruntime slowly; low-priority ones accumulate it fast, so they get scheduled less frequently.
+
+**Weight formula:**
+```
+weight = NICE_0_LOAD * 1.25^(-priority)
+```
+
+**vruntime update:**
+```
+vruntime += (executed_time * NICE_0_LOAD) / weight
+```
+
+The data structure is a **min-heap ordered by vruntime**, giving O(log n) insertion and O(1) lookup of the next process.
+
+![CFS algorithm flow diagram](image.png)
+
+---
+
 
 ## **1st Approach: Using Docker (Recommended)**
 
