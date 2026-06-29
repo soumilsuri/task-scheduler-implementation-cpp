@@ -24,11 +24,7 @@ npm run dev
 # Open http://localhost:3000
 ```
 
-**Deploy to Vercel (no backend needed):**
-```sh
-cd web
-npx vercel
-```
+**Live demo:** <!-- add your deployed URL here -->
 
 ---
 
