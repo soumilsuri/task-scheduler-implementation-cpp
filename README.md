@@ -24,7 +24,7 @@ npm run dev
 # Open http://localhost:3000
 ```
 
-**Live demo:** <!-- add your deployed URL here -->
+**Live demo:** https://task-scheduler-implementation-cpp.vercel.app/
 
 ---
 
