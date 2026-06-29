@@ -1,0 +1,90 @@
+/* =========================================================
+   Design Tokens
+   ========================================================= */
+:root {
+  /* Background layers */
+  --bg:               #09090b;
+  --surface:          #0f0f11;
+  --surface-raised:   #141416;
+  --surface-elevated: #1a1a1e;
+
+  /* Borders */
+  --border:           #27272a;
+  --border-hover:     #3f3f46;
+
+  /* Text */
+  --text:             #fafafa;
+  --text-muted:       #a1a1aa;
+  --text-dim:         #52525b;
+
+  /* Accent colors -- no gradients, solid */
+  --accent:           #3b82f6;   /* CPU-bound, primary action */
+  --accent-hover:     #2563eb;
+  --accent-io:        #8b5cf6;   /* IO-bound */
+  --accent-io-light:  #a78bfa;   /* IO_CPU phase */
+  --accent-active:    #22c55e;   /* currently running process */
+
+  /* Font stacks */
+  --font-sans:        var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono:        var(--font-jb-mono), 'Cascadia Code', 'Fira Code', monospace;
+  /* Raw font name for SVG fontFamily attribute */
+  --font-mono-raw:    'JetBrains Mono', 'Cascadia Code', monospace;
+}
+
+/* =========================================================
+   Reset & Base
+   ========================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  min-height: 100dvh;
+}
+
+/* =========================================================
+   Typography helpers
+   ========================================================= */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+
+/* =========================================================
+   Scrollbar -- subtle dark scrollbar
+   ========================================================= */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* =========================================================
+   Focus ring
+   ========================================================= */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
